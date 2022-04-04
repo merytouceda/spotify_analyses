@@ -1,0 +1,111 @@
+# Am I basic? 
+
+# ---------------------------------------------------------------------------------------------------------------
+# Set up: 
+# --------------------------------------------------------------------------------------------------------------
+
+# documentation
+## https://www.rcharlie.com/spotifyr/
+# https://developer.spotify.com/documentation/general/guides/authorization/app-settings/
+# developer dashboard: https://developer.spotify.com/dashboard/applications/531568209321426ba50d24e911b23c80
+
+# Set up
+#install.packages('spotifyr')
+library(spotifyr)
+#library(tidyverse)
+#library(knitr)
+library(ggplot2)
+library(ggrepel)
+library(peRReo)
+
+Sys.setenv(SPOTIFY_CLIENT_ID = '531568209321426ba50d24e911b23c80')
+Sys.setenv(SPOTIFY_CLIENT_SECRET = 'd4307d3c67c74598bed9d7d80f4db35b')
+
+access_token <- get_spotify_access_token()
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Am I basic?  
+# --------------------------------------------------------------------------------------------------------------
+
+# Retrieve data: 
+
+# Top 20
+my_top_20<-as.data.frame(get_my_top_artists_or_tracks(type = 'artists', time_range = 'long_term', limit = 20))
+hist(my_top_20$popularity)
+
+# Top 50: 
+my_top_50 <- as.data.frame(get_my_top_artists_or_tracks(type = 'artists', time_range = 'long_term', limit = 50))
+hist(my_top_50$popularity)
+
+# Top 50 recent: 
+my_top_50_recent <- as.data.frame(get_my_top_artists_or_tracks(type = 'artists', time_range = 'short_term', limit = 50))
+hist(my_top_50_recent$popularity)
+
+
+
+# plot boring but beautiful histogram
+ggplot(my_top_20, aes(x = popularity))+
+  geom_histogram(binwidth = 1)
+
+# 20: plot scatter to see correlation 
+my_top_20$rank = as.numeric(row.names(my_top_20))
+
+ggplot(my_top_20, aes(y = rank, x = popularity, size = followers.total))+
+  geom_point()+ 
+  scale_y_reverse()
+
+# 50: plot scatter to see correlation 
+
+pal1=latin_palette("badbunny1",50,type="continuous")
+pal2=latin_palette("rosalia",20)
+
+
+my_top_50$rank = as.numeric(row.names(my_top_50))
+
+ggplot(my_top_50, aes(y = rank, x = popularity, label = name, color = rank))+
+  geom_point(aes(size = followers.total),show.legend = FALSE)+ 
+  #geom_text(aes(label=name), size=3)+
+  geom_label_repel()+
+  scale_y_reverse()+ 
+  xlab("How popular the artist is")+
+  ylab("How high is this artist on my list")+
+  geom_smooth(method=lm, se=FALSE, fullrange=TRUE, colour="black", size=0.5)+
+  scale_color_gradientn(colors=rev(pal1))+
+  theme(legend.position = "none", axis.title=element_text(size=14), panel.background = element_blank(), 
+        axis.line = element_line(colour = "black"))
+
+
+
+  # 50 recent: plot scatter to see correlation 
+my_top_50_recent$rank = as.numeric(row.names(my_top_50_recent))
+
+ggplot(my_top_50_recent, aes(y = rank, x = popularity, size = followers.total, label = name, color = rank))+
+  geom_point()+ 
+  #geom_text(aes(label=name), size=3)+
+  geom_label_repel()+
+  scale_y_reverse()+ 
+  geom_smooth(method=lm, se=FALSE, fullrange=TRUE, colour="black", size=0.5)+
+  scale_color_gradientn(colors=rev(pal2))+
+  theme(legend.position = "none")+ 
+  theme_classic()
+
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Am I GETTING basic?  
+# --------------------------------------------------------------------------------------------------------------
+
+# Compare the long-medium-short term top artists vs popularity
+
+
+
+
+
+
+
+
+
+
+
+
