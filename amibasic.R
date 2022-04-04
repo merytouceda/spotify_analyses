@@ -18,6 +18,14 @@ library(ggplot2)
 library(ggrepel)
 library(peRReo)
 
+
+# Palettes: 
+pal1=latin_palette("badbunny1",50,type="continuous")
+pal2=latin_palette("rosalia",20,type="continuous")
+pal3=latin_palette("beckyg",type="continuous")
+
+# Log in spotify
+
 Sys.setenv(SPOTIFY_CLIENT_ID = '531568209321426ba50d24e911b23c80')
 Sys.setenv(SPOTIFY_CLIENT_SECRET = 'd4307d3c67c74598bed9d7d80f4db35b')
 
@@ -25,7 +33,7 @@ access_token <- get_spotify_access_token()
 
 
 # ---------------------------------------------------------------------------------------------------------------
-# Am I basic?  
+# Artist
 # --------------------------------------------------------------------------------------------------------------
 
 # Retrieve data: 
@@ -55,12 +63,9 @@ ggplot(my_top_20, aes(y = rank, x = popularity, size = followers.total))+
   geom_point()+ 
   scale_y_reverse()
 
+
+
 # 50: plot scatter to see correlation 
-
-pal1=latin_palette("badbunny1",50,type="continuous")
-pal2=latin_palette("rosalia",20)
-
-
 my_top_50$rank = as.numeric(row.names(my_top_50))
 
 ggplot(my_top_50, aes(y = rank, x = popularity, label = name, color = rank))+
@@ -92,16 +97,42 @@ ggplot(my_top_50_recent, aes(y = rank, x = popularity, size = followers.total, l
 
 
 
+
 # ---------------------------------------------------------------------------------------------------------------
-# Am I GETTING basic?  
-# --------------------------------------------------------------------------------------------------------------
+# Tracks
+# ---------------------------------------------------------------------------------------------------------------
 
-# Compare the long-medium-short term top artists vs popularity
+# Top 50: 
+my_top_50_tracks <- as.data.frame(get_my_top_artists_or_tracks(type = 'tracks', time_range = 'long_term', limit = 50))
+hist(my_top_50_tracks$popularity)
+
+my_top_50_tracks$rank = as.numeric(row.names(my_top_50_tracks))
+
+ggplot(my_top_50_tracks, aes(y = rank, x = popularity, label = name, color = 1-rank))+
+  geom_point(aes(),show.legend = FALSE)+ 
+  #geom_text(aes(label=name), size=3)+
+  geom_label_repel()+
+  scale_y_reverse()+ 
+  xlab("How popular the song is")+
+  ylab("How high is this song on my list")+
+  geom_smooth(method=lm, se=FALSE, fullrange=TRUE, colour="black", size=0.5)+
+  scale_color_gradientn(colors=rev(pal3))+
+  theme(legend.position = "none", axis.title=element_text(size=14), panel.background = element_blank(), 
+        axis.line = element_line(colour = "black"))
 
 
-
-
-
+# Explicit?
+ggplot(my_top_50_tracks, aes(y = rank, x = popularity, label = name, color = explicit))+
+  geom_point(aes(),show.legend = FALSE)+ 
+  #geom_text(aes(label=name), size=3)+
+  geom_label_repel()+
+  scale_y_reverse()+ 
+  xlab("How popular the artist is")+
+  ylab("How high is this artist on my list")+
+  geom_smooth(method=lm, se=FALSE, fullrange=TRUE, colour="black", size=0.5)+
+  scale_color_manual(values=c("black", "red"))+
+  theme(legend.position = "none", axis.title=element_text(size=14), panel.background = element_blank(), 
+        axis.line = element_line(colour = "black"))
 
 
 
