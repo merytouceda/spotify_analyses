@@ -27,8 +27,9 @@ pal3=latin_palette("beckyg",type="continuous")
 # Log in spotify
 
 Sys.setenv(SPOTIFY_CLIENT_ID = '531568209321426ba50d24e911b23c80')
+# aradillo: 7b39df5b18064e31b5943ed996bc5e00
 Sys.setenv(SPOTIFY_CLIENT_SECRET = 'd4307d3c67c74598bed9d7d80f4db35b')
-
+# aradillo: d5298cf1e3af42879bdf10696852a37b
 access_token <- get_spotify_access_token()
 
 
@@ -138,7 +139,8 @@ ggplot(my_top_50_tracks, aes(y = rank, x = popularity, label = name, color = exp
 # ERROR Handle overflow:top_50_tracks_features <- get_track_audio_features(my_top_50_tracks)
 
 my_top_20_tracks <- as.data.frame(get_my_top_artists_or_tracks(type = 'tracks', time_range = 'long_term', limit = 20))
-# ERROR Handle overflow: top_20_tracks_features <- get_track_audio_features(my_top_20_tracks)
+# ERROR Handle overflow: 
+top_20_tracks_features <- get_track_audio_features(my_top_20_tracks)
 
 my_top_10_tracks <- as.data.frame(get_my_top_artists_or_tracks(type = 'tracks', time_range = 'long_term', limit = 10))
 # Error 502: top_10_tracks_features <- get_track_audio_features(my_top_10_tracks)
