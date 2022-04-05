@@ -25,10 +25,11 @@ library(MetBrewer)
 # developer dashboard: https://developer.spotify.com/dashboard/applications/531568209321426ba50d24e911b23c80
 
 # Set up
-install.packages('spotifyr')
+#install.packages('spotifyr')
 library(spotifyr)
 library(tidyverse)
 library(knitr)
+library(dplyr)
 
 Sys.setenv(SPOTIFY_CLIENT_ID = '531568209321426ba50d24e911b23c80')
 Sys.setenv(SPOTIFY_CLIENT_SECRET = 'd4307d3c67c74598bed9d7d80f4db35b')
@@ -77,3 +78,28 @@ get_my_top_artists_or_tracks(type = 'tracks', time_range = 'short_term', limit =
 
 # Hirearchical clustering of David Bowie: https://twitter.com/WireMonkey/status/1009915034246565891?s=20&t=epagwVqyLnafDEG5TaY4lw
 # More tutorials and stuff here: https://www.rdocumentation.org/packages/spotifyr/versions/2.1.1
+
+
+
+# retrieving my playlists
+
+my_id <- 'ergumenijilda'
+my_plists <- get_user_playlists(my_id)
+barackobama_plists <- get_user_playlists('barackobama')
+
+my_plists_madebyme <- my_plists %>%
+  filter(owner.display_name == my_id) 
+
+my_plists_madebyme_tracks <- get_playlist_tracks(my_plists_madebyme)
+
+features <- get_track_audio_features(tracks)
+
+
+
+
+
+kendrick <- get_artist_audio_features('kendrick lamar')
+
+
+
+

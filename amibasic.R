@@ -134,9 +134,15 @@ ggplot(my_top_50_tracks, aes(y = rank, x = popularity, label = name, color = exp
   theme(legend.position = "none", axis.title=element_text(size=14), panel.background = element_blank(), 
         axis.line = element_line(colour = "black"))
 
+# get the features of the tracks to see what's up in my brain
+# ERROR Handle overflow:top_50_tracks_features <- get_track_audio_features(my_top_50_tracks)
 
+my_top_20_tracks <- as.data.frame(get_my_top_artists_or_tracks(type = 'tracks', time_range = 'long_term', limit = 20))
+# ERROR Handle overflow: top_20_tracks_features <- get_track_audio_features(my_top_20_tracks)
 
+my_top_10_tracks <- as.data.frame(get_my_top_artists_or_tracks(type = 'tracks', time_range = 'long_term', limit = 10))
+# Error 502: top_10_tracks_features <- get_track_audio_features(my_top_10_tracks)
 
-
-
+my_top_5_tracks <- as.data.frame(get_my_top_artists_or_tracks(type = 'tracks', time_range = 'long_term', limit = 5))
+# Error 502: top_5_tracks_features <- get_track_audio_features(my_top_5_tracks)
 
