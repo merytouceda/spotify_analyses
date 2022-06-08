@@ -64,7 +64,7 @@ palette <- c('royalblue1', 'orange', 'steelblue1', 'gold', 'pink', 'purple',
              'orangered2', 'orangered4', 'green1', 'violetred1', 'seagreen4', 'gray', 
              'snow1', 'darkorange3', 'plum3', 'darksalmon')
 
-# Exploratory
+# Exploratory boxplots
 ggplot(pride_playlists, aes(x = reorder(playlist_name, -danceability), y = danceability))+
   geom_boxplot(aes(fill=playlist_name), alpha = 0.4)+
   geom_jitter(aes(color=playlist_name), alpha=0.6)+
@@ -79,8 +79,32 @@ ggplot(pride_playlists, aes(x = reorder(playlist_name, -danceability), y = dance
         axis.line.y = element_line(color = 'black'))
 
 
-  
-  
+# PCA
+# Do an ordination of the playlists based on the properties
+# properties: columns 6-9, 11-16
+# remove column 10: mode
+pride_playlists <- pride_playlists[,-pride_playlists$mode]
+#properties: columns 6-15
+
+pride_pca <- prcomp(pride_playlists[,c(6:15)], center = TRUE, scale = TRUE)
+library(ggbiplot)
+ggbiplot(pride_pca, groups = pride_playlists$playlist_name)+
+  scale_color_manual(values = palette)
+
+# La mayor diferencia entre las playlists esta entre el acousticness e instrumentalness the la lista de clasica y las demas. 
+# Pero entre las demas no hay mucha diferencia. Se hacen todas una pelota, sobre todo las mas populares. 
+# Eso quiere decir que las listas no son tan diferentes en mood. 
+# Entonces en que son diferentes? Como encuentro la variable que las diferencia?
+
+# PCA without Queer Composers playlist
+
+palette2 <- c('royalblue1', 'orange', 'steelblue1', 'gold', 'pink', 'purple', 
+             'orangered2', 'orangered4', 'green1', 'violetred1', 'seagreen4', 
+             'snow1', 'darkorange3', 'plum3', 'darksalmon')
+pride_playlists_noncomposers <- pride_playlists[!(pride_playlists$playlist_name == "Queer Composers"),]
+pride_pca_noncomposers <- prcomp(pride_playlists_noncomposers[,c(6:15)], center = TRUE, scale = TRUE)
+ggbiplot(pride_pca_noncomposers, groups = pride_playlists_noncomposers$playlist_name)+
+  scale_color_manual(values = palette2)
 ## ----------------------------
 # Popularity Analysius
 ## ----------------------------
