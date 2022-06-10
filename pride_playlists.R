@@ -193,3 +193,11 @@ ggplot(metadata, aes(x = reorder(playlist_name, -explicitproportion/numbersongs)
         axis.line.y = element_line(color = 'black'))
 
 
+
+# -----------------
+# Radar plot 
+# ------------
+
+# follow these two codes:
+# https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd
+# https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.R
