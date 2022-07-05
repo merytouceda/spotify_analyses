@@ -10,7 +10,7 @@ So far I have:
 
 
 ## Am I Basic?: 
-I am. 
+I am. A little. Not a lot. This correlation has an extremely low r value.  
 
 Proof: 
 ![1d5fdd09-64c9-4086-9861-384483655b87](https://user-images.githubusercontent.com/29862508/172690450-e4d37749-f5e4-4ad6-9a0e-8e7d7bdcb5f8.jpg)
