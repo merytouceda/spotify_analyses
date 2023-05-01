@@ -19,11 +19,18 @@ Proof:
 I listen more to more popular songs and artists. It is not a perfect correlation, but it is there. 
 
 
+# FUTURE PROJECTS
+
 ## Pride Playlists: 
 On the morning of June 7th 2022 I was looking at the home page of my spotify app, trying to decide on a series of jams to motivate me to work, when I was suggested this: 
 
 ![55813c35-d0ec-48b0-a9d6-cb14d0ba0bac](https://user-images.githubusercontent.com/29862508/172685967-8f28214c-67d4-4e80-98d8-01074587c357.jpg)
 
-I was 50% annoyed at the fact that Spotify is also jumping on the commercialization of pride train, 50% intrigued at what properties must a song have to make it to one of these playlists, and what differences there are between them. 
+I was 50% annoyed at the fact that Spotify is also jumping on the commercialization of pride train, 50% intrigued at what properties must a song have to make it to one of these playlists, and what differences there are between them. Also, how do pride playlists created automatically by spotify compare to those made by users?
 
 Here is what I found... (In progress)
+
+## User made vs. spotify made playlist comparison
+This is what I want this project to be as I told Momo on whatsapp: "to compare the richness and diversity (ecological terms) of the user base playlists compared to those made by spotify to illustrate how trend setters based on algorithms maintain the status quo"
+
+
